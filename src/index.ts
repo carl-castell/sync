@@ -11,6 +11,19 @@ AppDataSource.initialize().then(async () => {
     const app = express()
     app.use(bodyParser.json())
 
+    app.get("/", (req: Request, res: Response) => {
+        res.send(`
+            <html>
+                <head>
+                    <title>Run test</title>
+                </head>
+                <body>
+                    <h1></h1>
+                    <a href="https://code.berlin">test link</a>
+                </body>
+            </html>
+        `);
+    });
     // register express routes from defined application routes
     Routes.forEach(route => {
         (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
@@ -30,6 +43,6 @@ AppDataSource.initialize().then(async () => {
     // start express server
     app.listen(3000)
     
-    console.log("Express server has started on port 3000. Open http://localhost:3000/users to see results")
+    console.log("Express server has started on port 3000. Open http://localhost:3000/ to see results")
 
 }).catch(error => console.log(error))
